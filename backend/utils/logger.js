@@ -1,0 +1,19 @@
+import pino from "pino";
+import { pinoHttp } from "pino-http";
+
+export const logger = pino({
+  level: "info",
+  transport:
+    process.env.NODE_ENV !== "production"
+      ? {
+          target: "pino-pretty",
+          options: {
+            colorize: true,
+          },
+        }
+      : undefined,
+});
+
+export const httpLogger = pinoHttp({
+  logger,
+});
