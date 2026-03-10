@@ -2,10 +2,35 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import styles from "./Header.module.css";
 
+function useClickOutside(ref, handler) {
+  useEffect(() => {
+    const listener = (event) => {
+      if (!ref.current || ref.current.contains(event.target)) {
+        return;
+      }
+      handler(event);
+    };
+
+    const abortController = new AbortController();
+    document.addEventListener("mousedown", listener, {
+      signal: abortController.signal,
+    });
+    document.addEventListener("touchstart", listener, {
+      signal: abortController.signal,
+    });
+    return () => {
+      abortController.abort();
+    };
+  });
+}
+
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
   const mobileNavListRef = useRef(null);
+  const mobileNavRef = useRef(null);
   const [mobileMenuHeight, setMobileMenuHeight] = useState(0);
+
+  useClickOutside(mobileNavRef, () => setIsMobileMenuOpen(false));
 
   useEffect(() => {
     const updateMenuHeight = () => {
@@ -34,7 +59,7 @@ export default function Header() {
 
       <div className={styles.navWrapper}>
         <nav>
-          <div className={styles.mobileNav}>
+          <div ref={mobileNavRef} className={styles.mobileNav}>
             <button
               type="button"
               className={styles.mobileMenuButton}
