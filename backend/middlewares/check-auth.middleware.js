@@ -9,7 +9,7 @@ export const checkAuth = async (req, res, next) => {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await userService.getById(payload.sub);
+    const { password: _, ...user } = await userService.getById(payload.sub);
     if (!user) throw new UnauthorizedError();
     req.user = user;
     next();
