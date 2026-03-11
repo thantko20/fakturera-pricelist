@@ -2,32 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import styles from "./Header.module.css";
-
-function useClickOutside(ref, handler) {
-  useEffect(() => {
-    const listener = (event) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-      handler(event);
-    };
-
-    const abortController = new AbortController();
-    document.addEventListener("mousedown", listener, {
-      signal: abortController.signal,
-    });
-    document.addEventListener("touchstart", listener, {
-      signal: abortController.signal,
-    });
-    return () => {
-      abortController.abort();
-    };
-  });
-}
+import { useClickOutside } from "../hooks/use-click-outside.js";
+import LangMenu from "./LangMenu.jsx";
 
 export default function Header() {
   const { t } = useTranslation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileNavListRef = useRef(null);
   const mobileNavRef = useRef(null);
   const [mobileMenuHeight, setMobileMenuHeight] = useState(0);
@@ -116,13 +96,7 @@ export default function Header() {
           </ul>
         </nav>
 
-        <span className={styles.lang}>
-          {t("header.language.english")}
-          <img
-            src="https://storage.123fakturere.no/public/flags/GB.png"
-            alt={t("header.flag.alt")}
-          />
-        </span>
+        <LangMenu />
       </div>
     </header>
   );
