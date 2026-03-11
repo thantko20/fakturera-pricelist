@@ -1,3 +1,63 @@
 .lang {
-  margin-left: 0;
+  margin-left: 44px;
+  position: relative;
+
+  & button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  &> button {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  & img {
+    width: 24px;
+    height: 18px;
+    border-radius: 2px;
+  }
+}
+
+.langMenu {
+  position: absolute;
+  top: 30px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;;
+  color: black;
+}
+
+.langMenu[data-open="true"] {
+  display: display;
+}
+
+.langMenu[data-open="false"] {
+  display: none;
+}
+
+.langMenuItem {
+  width: 100%;
+  text-decoration: none;
+  padding: 1rem 1rem;
+  background-color: transparent;
+  color: black;
+  font-weight: 600;
+
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
 }
