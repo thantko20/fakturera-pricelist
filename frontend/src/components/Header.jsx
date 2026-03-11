@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import styles from "./Header.module.css";
 
 function useClickOutside(ref, handler) {
@@ -25,6 +26,7 @@ function useClickOutside(ref, handler) {
 }
 
 export default function Header() {
+  const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
   const mobileNavListRef = useRef(null);
   const mobileNavRef = useRef(null);
@@ -54,7 +56,7 @@ export default function Header() {
       <img
         className={styles.logoGem}
         src="https://storage.123fakturera.se/public/icons/diamond.png"
-        alt="logo of 123fakturera"
+        alt={t("header.logo.alt")}
       />
 
       <div className={styles.navWrapper}>
@@ -63,7 +65,7 @@ export default function Header() {
             <button
               type="button"
               className={styles.mobileMenuButton}
-              aria-label="Toggle navigation"
+              aria-label={t("header.mobilemenu.togglearia")}
               aria-expanded={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((open) => !open)}
             >
@@ -77,19 +79,19 @@ export default function Header() {
             >
               <ul ref={mobileNavListRef} className={styles.mobileNavList}>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/">{t("header.nav.home")}</Link>
                 </li>
                 <li>
-                  <Link to="/order">Order</Link>
+                  <Link to="/order">{t("header.nav.order")}</Link>
                 </li>
                 <li>
-                  <Link to="/customers">Our Customers</Link>
+                  <Link to="/customers">{t("header.nav.ourcustomers")}</Link>
                 </li>
                 <li>
-                  <Link to="/about">About us</Link>
+                  <Link to="/about">{t("header.nav.aboutus")}</Link>
                 </li>
                 <li>
-                  <Link to="/contact">Contact Us</Link>
+                  <Link to="/contact">{t("header.nav.contactus")}</Link>
                 </li>
               </ul>
             </div>
@@ -97,28 +99,28 @@ export default function Header() {
 
           <ul className={`${styles.navList} ${styles.desktopNavList}`}>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">{t("header.nav.home")}</Link>
             </li>
             <li>
-              <Link to="/order">Order</Link>
+              <Link to="/order">{t("header.nav.order")}</Link>
             </li>
             <li>
-              <Link to="/customers">Our Customers</Link>
+              <Link to="/customers">{t("header.nav.ourcustomers")}</Link>
             </li>
             <li>
-              <Link to="/about">About us</Link>
+              <Link to="/about">{t("header.nav.aboutus")}</Link>
             </li>
             <li>
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/contact">{t("header.nav.contactus")}</Link>
             </li>
           </ul>
         </nav>
 
         <span className={styles.lang}>
-          English
+          {t("header.language.english")}
           <img
             src="https://storage.123fakturere.no/public/flags/GB.png"
-            alt="flag of great britain"
+            alt={t("header.flag.alt")}
           />
         </span>
       </div>

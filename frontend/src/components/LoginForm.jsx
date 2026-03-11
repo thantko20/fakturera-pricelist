@@ -23,18 +23,18 @@ export default function LoginForm() {
         <input
           id="email"
           type="email"
-          placeholder="Email address"
+          placeholder={t("login.form.placeholder.email")}
           {...register("username")}
         />
         <p className={styles.inputError}>{t(errors.username?.message || "")}</p>
       </div>
       <div className={styles.formControl}>
-        <label htmlFor="password">Enter your password</label>
+        <label htmlFor="password">{t("login.form.label.password")}</label>
         <div className={styles.passwordRow}>
           <input
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder={t("login.form.placeholder.password")}
             {...register("password")}
           />
           <span className={styles.eyeIcon} aria-hidden="true" />
@@ -42,7 +42,7 @@ export default function LoginForm() {
         <p className={styles.inputError}>{t(errors.password?.message || "")}</p>
       </div>
 
-      <button type="submit">Log in</button>
+      <button type="submit">{t("login.form.submit")}</button>
     </form>
   );
 }
