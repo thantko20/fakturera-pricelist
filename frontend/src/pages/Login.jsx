@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import Header from "../components/Header";
 import styles from "./Login.module.css";
+import LoginForm from "../components/LoginForm";
 
 export default function Login() {
   return (
@@ -10,25 +11,7 @@ export default function Login() {
       <main className={styles.main}>
         <section className={styles.card}>
           <h1>Log in</h1>
-
-          <form className={styles.form}>
-            <div className={styles.formControl}>
-              <label htmlFor="email">Enter your email address</label>
-              <input id="email" type="email" placeholder="Email address" />
-              <p className={styles.inputError}></p>
-            </div>
-            <div className={styles.formControl}>
-              <label htmlFor="password">Enter your password</label>
-              <div className={styles.passwordRow}>
-                <input id="password" type="password" placeholder="Password" />
-                <span className={styles.eyeIcon} aria-hidden="true" />
-              </div>
-              <p className={styles.inputError}></p>
-            </div>
-
-            <button type="submit">Log in</button>
-          </form>
-
+          <LoginForm />
           <div className={styles.metaLinks}>
             <Link to="/register">Register</Link>
             <Link to="/forgot-password">Forgotten password?</Link>
