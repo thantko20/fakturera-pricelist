@@ -7,4 +7,8 @@ translationRoutes.get("/en", async (req, res) => {
   return res.json(await translationService.getLocalePayload("en"));
 });
 
+translationRoutes.get("/sv", async (req, res) => {
+  return res.json(await translationService.getLocalePayload("sv"));
+});
+
 export default translationRoutes;

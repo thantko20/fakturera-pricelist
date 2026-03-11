@@ -2,12 +2,11 @@ import { logger } from "./logger.js";
 
 class AppError extends Error {
   statusCode;
-  message;
   tag;
 
   constructor(statusCode, message, tag) {
+    super(message);
     this.statusCode = statusCode;
-    this.message = message;
     this.tag = tag;
     Error.captureStackTrace(this, this.constructor);
   }

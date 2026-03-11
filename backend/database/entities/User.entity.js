@@ -9,7 +9,7 @@ const User = new EntitySchema({
       primary: true,
       generated: "uuid",
     },
-    username: {
+    email: {
       type: "varchar",
       unique: true,
     },
