@@ -1,5 +1,5 @@
-import { AppDataSource } from "../database/data-source";
-import Translation from "../database/entities/Translation.entity";
+import { AppDataSource } from "../database/data-source.js";
+import Translation from "../database/entities/Translation.entity.js";
 
 const getLocalePayload = async (locale) => {
   const result = await AppDataSource.getRepository(Translation)
@@ -8,7 +8,7 @@ const getLocalePayload = async (locale) => {
     .where("t.locale = :locale", { locale })
     .getRawOne();
 
-  return result;
+  return result.payload;
 };
 
 const translationService = {

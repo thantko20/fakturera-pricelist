@@ -2,8 +2,10 @@ import styles from "./LoginForm.module.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../schemas/login.schema";
+import { useTranslation } from "react-i18next";
 
 export default function LoginForm() {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -11,21 +13,20 @@ export default function LoginForm() {
   } = useForm({
     resolver: zodResolver(LoginSchema),
   });
-  console.log("huh");
 
   const onSubmit = (data) => console.log(data);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.formControl}>
-        <label htmlFor="email">Enter your email address</label>
+        <label htmlFor="email">{t("login.form.label.email")}</label>
         <input
           id="email"
           type="email"
           placeholder="Email address"
           {...register("username")}
         />
-        <p className={styles.inputError}>{errors.username?.message || ""}</p>
+        <p className={styles.inputError}>{t(errors.username?.message || "")}</p>
       </div>
       <div className={styles.formControl}>
         <label htmlFor="password">Enter your password</label>
@@ -38,7 +39,7 @@ export default function LoginForm() {
           />
           <span className={styles.eyeIcon} aria-hidden="true" />
         </div>
-        <p className={styles.inputError}>{errors.password?.message || ""}</p>
+        <p className={styles.inputError}>{t(errors.password?.message || "")}</p>
       </div>
 
       <button type="submit">Log in</button>

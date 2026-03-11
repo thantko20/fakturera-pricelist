@@ -1,5 +1,5 @@
 import express from "express";
-import translationService from "../services/translation.service";
+import translationService from "../services/translation.service.js";
 
 const translationRoutes = express.Router();
 
