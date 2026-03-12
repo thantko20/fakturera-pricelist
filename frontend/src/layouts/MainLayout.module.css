@@ -130,5 +130,10 @@
 
 .content {
   flex: 1;
-  padding: 1rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+
+  @media (min-width: 1272px) {
+    padding-inline: 3rem;
+  }
 }
