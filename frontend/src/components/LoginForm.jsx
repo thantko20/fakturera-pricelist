@@ -32,7 +32,7 @@ export default function LoginForm() {
       setAuthFromLogin({
         accessToken: authData.accessToken,
       });
-      navigate("/");
+      navigate("/price-list");
     },
   });
 

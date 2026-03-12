@@ -36,6 +36,12 @@ export class InternalServerError extends AppError {
   }
 }
 
+export class LanguageNotSupportedError extends AppError {
+  constructor() {
+    super(400, "Language Not Supported", "LanguageNotSupported");
+  }
+}
+
 export const errorHandler = (error, req, res, next) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({
