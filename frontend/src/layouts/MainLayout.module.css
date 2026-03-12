@@ -1,0 +1,30 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+}
+
+.header {
+  flex-shrink: 0;
+  background-color: cadetblue;
+
+  /* temp */
+  height: 5rem;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+}
+
+.sidebar {
+  width: 16rem;
+  flex-shrink: 0;
+  background-color: limegreen;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
