@@ -3,6 +3,8 @@ import { checkAuth } from "../middlewares/check-auth.middleware.js";
 import { updateProductSchema } from "../schemas/product.schemas.js";
 import productService from "../services/product.service.js";
 import { ValidationError } from "../utils/error.js";
+import { logger } from "../utils/logger.js";
+import z from "zod";
 
 const productRoutes = express.Router();
 
@@ -13,6 +15,7 @@ productRoutes.get("/", checkAuth, async (req, res) => {
 productRoutes.put("/:id", checkAuth, async (req, res) => {
   const parsed = updateProductSchema.safeParse(req.body);
   if (!parsed.success) {
+    logger.warn(z.treeifyError(parsed.error));
     throw new ValidationError();
   }
 

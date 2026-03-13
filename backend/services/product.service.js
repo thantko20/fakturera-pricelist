@@ -4,7 +4,11 @@ import { NotFoundError } from "../utils/error.js";
 
 const getAll = async () => {
   const productRepository = AppDataSource.getRepository(Product);
-  return await productRepository.find();
+  return await productRepository.find({
+    order: {
+      articleNo: "asc",
+    },
+  });
 };
 
 const updateById = async (id, payload) => {

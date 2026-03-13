@@ -10,8 +10,4 @@ export const updateProductSchema = z.object({
   unit: z.string("Unit is required").min(1, "Unit is required"),
   quantity: z.number("Quantity is required").int("Quantity must be an integer"),
   description: z.string("Description is required"),
-  locale: z
-    .string("Locale is required")
-    .min(2, "Locale must be at least 2 characters")
-    .max(10, "Locale must be at most 10 characters"),
 });
