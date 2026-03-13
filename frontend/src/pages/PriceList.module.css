@@ -101,7 +101,7 @@
 
   display: none;
 
-  &[data-column="productName"], &[data-column="price"], &[data-column="more"] {
+  &[data-column="productName"], &[data-column="price"], &[data-column="more"], &[data-column="arrow"] {
     display: table-cell;
   }
 
@@ -122,7 +122,7 @@
 
   display: none;
 
-  &[data-column="productName"], &[data-column="price"], &[data-column="more"] {
+  &[data-column="productName"], &[data-column="price"], &[data-column="more"], &[data-column="arrow"] {
     display: table-cell;
   }
 
@@ -180,27 +180,3 @@
   width: 1.75rem;
   text-align: center;
 }
-
-/* .priceTable th[data-column="productName"],
-.priceTable td[data-column="productName"] {
-  display: table-cell;
-}
-
-.priceTable th[data-column="price"],
-.priceTable td[data-column="price"] {
-  display: table-cell;
-}
-
-@media (min-width: 640px) {
-  .priceTable {
-    min-width: 58rem;
-  }
-
-  .priceTable th {
-    display: table-cell;
-  }
-
-  .priceTable td {
-    display: table-cell;
-  }
-} */

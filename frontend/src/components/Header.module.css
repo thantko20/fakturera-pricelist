@@ -90,45 +90,6 @@
     display: block;
   }
 
-  .mobileMenuButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 24px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-  }
-
-  .mobileMenuButton span,
-  .mobileMenuButton span::before,
-  .mobileMenuButton span::after {
-    content: "";
-    display: block;
-    width: 28px;
-    height: 3px;
-    border-radius: 3px;
-    background: #ffffff;
-  }
-
-  .mobileMenuButton span {
-    position: relative;
-  }
-
-  .mobileMenuButton span::before {
-    position: absolute;
-    top: -8px;
-    left: 0;
-  }
-
-  .mobileMenuButton span::after {
-    position: absolute;
-    top: 8px;
-    left: 0;
-  }
-
   .mobileNavMenu {
     position: absolute;
     display: block;

@@ -56,7 +56,7 @@ export default function PriceList() {
           <table className={styles.priceTable}>
             <thead>
               <tr>
-                <th className={styles.indicatorHeader}></th>
+                <th data-column="arrow" className={styles.indicatorHeader}></th>
                 <th data-column="articleNo">Article No.</th>
                 <th data-column="productName">Product/Service</th>
                 <th data-column="inPrice">In Price</th>
@@ -71,7 +71,7 @@ export default function PriceList() {
             <tbody>
               {productsQuery.data?.map((product) => (
                 <tr key={product.id}>
-                  <td className={styles.rowArrow}>
+                  <td data-column="arrow" className={styles.rowArrow}>
                     {selectedProductId === product.id ? "→" : null}
                   </td>
                   <td data-column="articleNo">

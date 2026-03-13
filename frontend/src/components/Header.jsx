@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./Header.module.css";
 import { useClickOutside } from "../hooks/use-click-outside.js";
 import LangMenu from "./LangMenu.jsx";
+import HamburgerMenuButton from "./HamburgerMenuButton.jsx";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -42,7 +43,10 @@ export default function Header() {
       <div className={styles.navWrapper}>
         <nav>
           <div ref={mobileNavRef} className={styles.mobileNav}>
-            <button
+            <HamburgerMenuButton
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+            />
+            {/* <button
               type="button"
               className={styles.mobileMenuButton}
               aria-label={t("header.mobilemenu.togglearia")}
@@ -50,7 +54,7 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen((open) => !open)}
             >
               <span aria-hidden="true" />
-            </button>
+            </button> */}
 
             <div
               data-open={isMobileMenuOpen}
