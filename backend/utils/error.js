@@ -42,6 +42,12 @@ export class LanguageNotSupportedError extends AppError {
   }
 }
 
+export class NotFoundError extends AppError {
+  constructor(message) {
+    super(404, message || "Not Found", "NotFound");
+  }
+}
+
 export const errorHandler = (error, req, res, next) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({

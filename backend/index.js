@@ -9,6 +9,7 @@ import helmet from "helmet";
 import authRoutes from "./routes/auth.routes.js";
 import { errorHandler } from "./utils/error.js";
 import translationRoutes from "./routes/translation.routes.js";
+import productRoutes from "./routes/product.routes.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get("/", async (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/translations/locales", translationRoutes);
+app.use("/api/products", productRoutes);
 
 app.use(errorHandler);
 
