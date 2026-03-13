@@ -2,6 +2,11 @@ import styles from "./PriceList.module.css";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/axios";
+import {
+  PlusCircleIcon,
+  PrinterIcon,
+  ToggleRightIcon,
+} from "@phosphor-icons/react";
 
 export default function PriceList() {
   const productsQuery = useQuery({
@@ -32,13 +37,16 @@ export default function PriceList() {
 
         <div className={styles.actionGroup}>
           <button type="button" className={styles.actionButton}>
-            New Product
+            <p>New Product</p>
+            <PlusCircleIcon size={24} weight="fill" color="green" />
           </button>
           <button type="button" className={styles.actionButton}>
-            Print List
+            <p>Print List</p>
+            <PrinterIcon size={24} weight="fill" color="#30a9dc" />
           </button>
           <button type="button" className={styles.actionButton}>
-            Advanced mode
+            <p>Advanced mode</p>
+            <ToggleRightIcon size={24} weight="fill" color="#30a9dc" />
           </button>
         </div>
       </section>
@@ -49,13 +57,13 @@ export default function PriceList() {
             <thead>
               <tr>
                 <th className={styles.indicatorHeader}></th>
-                <th>Article No.</th>
-                <th>Product/Service</th>
-                <th>In Price</th>
-                <th>Price</th>
-                <th>Unit</th>
-                <th>In Stock</th>
-                <th>Description</th>
+                <th data-column="articleNo">Article No.</th>
+                <th data-column="productName">Product/Service</th>
+                <th data-column="inPrice">In Price</th>
+                <th data-column="price">Price</th>
+                <th data-column="unit">Unit</th>
+                <th data-column="quantity">In Stock</th>
+                <th data-column="description">Description</th>
                 <th className={styles.moreHeader}></th>
               </tr>
             </thead>
@@ -66,50 +74,58 @@ export default function PriceList() {
                   <td className={styles.rowArrow}>
                     {selectedProductId === product.id ? "→" : null}
                   </td>
-                  <td>
+                  <td data-column="articleNo">
                     <input
                       className={styles.rowInput}
                       defaultValue={product.articleNo}
                       onFocus={() => onRowInputFocus(product.id)}
                     />
                   </td>
-                  <td>
+                  <td data-column="productName">
                     <input
                       className={styles.rowInput}
                       defaultValue={product.name}
+                      onFocus={() => onRowInputFocus(product.id)}
                     />
                   </td>
-                  <td>
+                  <td data-column="inPrice">
                     <input
                       className={styles.rowInput}
                       defaultValue={product.inPrice}
+                      onFocus={() => onRowInputFocus(product.id)}
                     />
                   </td>
-                  <td>
+                  <td data-column="price">
                     <input
                       className={styles.rowInput}
                       defaultValue={product.price}
+                      onFocus={() => onRowInputFocus(product.id)}
                     />
                   </td>
-                  <td>
+                  <td data-column="unit">
                     <input
                       className={styles.rowInput}
                       defaultValue={product.unit}
+                      onFocus={() => onRowInputFocus(product.id)}
                     />
                   </td>
-                  <td>
+                  <td data-column="quantity">
                     <input
                       className={styles.rowInput}
                       defaultValue={product.quantity}
+                      onFocus={() => onRowInputFocus(product.id)}
                     />
                   </td>
-                  <td>
+                  <td data-column="description">
                     <input
                       className={styles.rowInput}
                       defaultValue={product.description}
+                      onFocus={() => onRowInputFocus(product.id)}
                     />
                   </td>
-                  <td className={styles.rowMore}>...</td>
+                  <td data-column="more" className={styles.rowMore}>
+                    ...
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -8,6 +8,11 @@
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .searchGroup {
@@ -26,6 +31,7 @@
   font-size: 0.875rem;
   width: 100%;
   box-sizing: border-box;
+  min-width: 16rem;
 }
 
 .searchInput:focus {
@@ -34,22 +40,38 @@
 
 .actionGroup {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.75rem;
+  justify-content: space-between;
 }
 
 .actionButton {
   height: 2rem;
   border: 1px solid #e4e4e4;
   border-radius: 999px;
-  background-color: #ffffff;
+  background-color: white;
   color: #808080;
   padding: 0 1rem;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   font-size: 0.875rem;
   cursor: pointer;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  @media (min-width: 640px) {
+    min-width: 6rem;
+    flex-grow: 0;
+  }
+
+  & p {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
 }
 
 .tableSection {
@@ -64,7 +86,7 @@
 
 .priceTable {
   width: 100%;
-  min-width: 58rem;
+  min-width: 100%;
   border-collapse: separate;
   border-spacing: 0 0.625rem;
 }
@@ -76,11 +98,43 @@
   text-align: left;
   padding: 0 0.25rem;
   white-space: nowrap;
+
+  display: none;
+
+  &[data-column="productName"], &[data-column="price"], &[data-column="more"] {
+    display: table-cell;
+  }
+
+  @media (min-width: 768px) {
+    &[data-column="articleNo"],&[data-column="unit"],&[data-column="quantity"] {
+      display: table-cell;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    display: table-cell;
+  }
 }
 
 .priceTable td {
   padding: 0 0.25rem;
   white-space: nowrap;
+
+  display: none;
+
+  &[data-column="productName"], &[data-column="price"], &[data-column="more"] {
+    display: table-cell;
+  }
+
+  @media (min-width: 768px) {
+    &[data-column="articleNo"],&[data-column="unit"],&[data-column="quantity"] {
+      display: table-cell;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    display: table-cell;
+  }
 }
 
 .indicatorHeader {
@@ -127,14 +181,26 @@
   text-align: center;
 }
 
-@media (min-width: 1024px) {
-  .toolbarSection {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+/* .priceTable th[data-column="productName"],
+.priceTable td[data-column="productName"] {
+  display: table-cell;
+}
+
+.priceTable th[data-column="price"],
+.priceTable td[data-column="price"] {
+  display: table-cell;
+}
+
+@media (min-width: 640px) {
+  .priceTable {
+    min-width: 58rem;
   }
 
-  .searchGroup {
-    width: 18rem;
+  .priceTable th {
+    display: table-cell;
   }
-}
+
+  .priceTable td {
+    display: table-cell;
+  }
+} */
