@@ -1,4 +1,5 @@
 import styles from "./PriceList.module.css";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/axios";
 
@@ -8,6 +9,13 @@ export default function PriceList() {
       return await api.get("/products").then((res) => res.data);
     },
   });
+
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  const onRowInputFocus = (productId) => {
+    setSelectedProductId(productId);
+  };
+
   return (
     <div className={styles.priceListPage}>
       <section className={styles.toolbarSection}>
@@ -53,59 +61,57 @@ export default function PriceList() {
             </thead>
 
             <tbody>
-              <tr>
-                <td className={styles.rowArrow}>→</td>
-                <td>
-                  <input
-                    className={styles.rowInput}
-                    defaultValue="1234567890"
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    className={styles.rowInput}
-                    defaultValue="This is a test product with fifty characters this!"
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    className={styles.rowInput}
-                    defaultValue="900500"
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    className={styles.rowInput}
-                    defaultValue="1500800"
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    className={styles.rowInput}
-                    defaultValue="kilometers/hour"
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    className={styles.rowInput}
-                    defaultValue="2500600"
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    className={styles.rowInput}
-                    defaultValue="This is the description with fifty characters this"
-                    readOnly
-                  />
-                </td>
-                <td className={styles.rowMore}>...</td>
-              </tr>
+              {productsQuery.data?.map((product) => (
+                <tr key={product.id}>
+                  <td className={styles.rowArrow}>
+                    {selectedProductId === product.id ? "→" : null}
+                  </td>
+                  <td>
+                    <input
+                      className={styles.rowInput}
+                      defaultValue={product.articleNo}
+                      onFocus={() => onRowInputFocus(product.id)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className={styles.rowInput}
+                      defaultValue={product.name}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className={styles.rowInput}
+                      defaultValue={product.inPrice}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className={styles.rowInput}
+                      defaultValue={product.price}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className={styles.rowInput}
+                      defaultValue={product.unit}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className={styles.rowInput}
+                      defaultValue={product.quantity}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className={styles.rowInput}
+                      defaultValue={product.description}
+                    />
+                  </td>
+                  <td className={styles.rowMore}>...</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
