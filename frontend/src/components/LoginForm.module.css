@@ -6,7 +6,7 @@
   gap: 1rem;
 }
 
-.form-control {
+.formControl {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -41,26 +41,34 @@
   padding-right: 68px;
 }
 
-.eyeIcon {
+.passwordRow {
+  position: relative;
+}
+
+.showPasswordButton {
   position: absolute;
   top: 50%;
-  right: 24px;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #cfcfcf;
+  right: 0.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #808080;
   border-radius: 50%;
   transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-.eyeIcon::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  background: #cfcfcf;
+.showPasswordButton:focus-visible {
+  outline: 2px solid #30a9dc;
+  outline-offset: 2px;
 }
 
-.form button {
+.submitButton {
   width: 100%;
   max-width: 270px;
   align-self: center;

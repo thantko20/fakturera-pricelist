@@ -46,16 +46,6 @@ export default function Header() {
             <HamburgerMenuButton
               onClick={() => setIsMobileMenuOpen((open) => !open)}
             />
-            {/* <button
-              type="button"
-              className={styles.mobileMenuButton}
-              aria-label={t("header.mobilemenu.togglearia")}
-              aria-expanded={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen((open) => !open)}
-            >
-              <span aria-hidden="true" />
-            </button> */}
-
             <div
               data-open={isMobileMenuOpen}
               className={styles.mobileNavMenu}

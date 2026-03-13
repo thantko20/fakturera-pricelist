@@ -99,6 +99,7 @@
     overflow: hidden;
     height: 0;
     transition: height 0.3s ease;
+    z-index: 10;
 
     &[data-open="true"] {
       height: var(--mobile-menu-height, 0px);

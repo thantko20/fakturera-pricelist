@@ -7,6 +7,40 @@ import { useMutation } from "@tanstack/react-query";
 import { api } from "../lib/axios";
 import { useAuth } from "../hooks/use-auth";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
+
+const PasswordInput = ({ register }) => {
+  const { t } = useTranslation();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const onTogglePasswordVisibility = () => {
+    setIsPasswordVisible((visible) => !visible);
+  };
+
+  return (
+    <div className={styles.passwordRow}>
+      <input
+        id="password"
+        type={isPasswordVisible ? "text" : "password"}
+        placeholder={t("login.form.placeholder.password")}
+        {...register("password")}
+      />
+      <button
+        type="button"
+        className={styles.showPasswordButton}
+        onClick={onTogglePasswordVisibility}
+        aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+      >
+        {isPasswordVisible ? (
+          <EyeSlashIcon size={20} weight="fill" />
+        ) : (
+          <EyeIcon size={20} weight="fill" />
+        )}
+      </button>
+    </div>
+  );
+};
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -57,15 +91,7 @@ export default function LoginForm() {
       </div>
       <div className={styles.formControl}>
         <label htmlFor="password">{t("login.form.label.password")}</label>
-        <div className={styles.passwordRow}>
-          <input
-            id="password"
-            type="password"
-            placeholder={t("login.form.placeholder.password")}
-            {...register("password")}
-          />
-          <span className={styles.eyeIcon} aria-hidden="true" />
-        </div>
+        <PasswordInput register={register} />
         <p className={styles.inputError}>{t(errors.password?.message || "")}</p>
       </div>
 
@@ -73,7 +99,11 @@ export default function LoginForm() {
         <p className={styles.inputError}>{loginErrorMessage}</p>
       )}
 
-      <button type="submit" disabled={loginMutation.isPending}>
+      <button
+        type="submit"
+        className={styles.submitButton}
+        disabled={loginMutation.isPending}
+      >
         {loginMutation.isPending ? "Loading..." : t("login.form.submit")}
       </button>
     </form>
