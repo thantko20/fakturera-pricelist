@@ -1,6 +1,13 @@
 import styles from "./PriceList.module.css";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../lib/axios";
 
 export default function PriceList() {
+  const productsQuery = useQuery({
+    queryFn: async () => {
+      return await api.get("/products").then((res) => res.data);
+    },
+  });
   return (
     <div className={styles.priceListPage}>
       <section className={styles.toolbarSection}>

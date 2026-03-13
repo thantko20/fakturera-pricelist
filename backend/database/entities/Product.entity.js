@@ -12,9 +12,11 @@ const Product = new EntitySchema({
     articleNo: {
       type: "varchar",
       name: "article_no",
+      unique: true,
     },
     name: {
       type: "varchar",
+      unique: true,
     },
     inPrice: {
       type: "integer",
@@ -31,10 +33,6 @@ const Product = new EntitySchema({
     },
     description: {
       type: "text",
-    },
-    locale: {
-      type: "varchar",
-      length: 10,
     },
   },
 });
