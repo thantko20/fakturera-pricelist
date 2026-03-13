@@ -3,6 +3,9 @@ import styles from "./LangMenu.module.css";
 import { useState, useRef } from "react";
 import { useClickOutside } from "../hooks/use-click-outside.js";
 
+const SWEDISH_FLAG_URL = "https://storage.123fakturere.no/public/flags/SE.png";
+const ENGLISH_FLAG_URL = "https://storage.123fakturere.no/public/flags/GB.png";
+
 export default function LangMenu() {
   const { t, i18n } = useTranslation();
   const langMenuRef = useRef(null);
@@ -20,7 +23,7 @@ export default function LangMenu() {
       <button onClick={() => setIsOpen((open) => !open)}>
         {t("header.language.english")}
         <img
-          src="https://storage.123fakturere.no/public/flags/GB.png"
+          src={i18n.language === "sv" ? SWEDISH_FLAG_URL : ENGLISH_FLAG_URL}
           alt={t("header.flag.alt")}
         />
       </button>
@@ -29,21 +32,13 @@ export default function LangMenu() {
           className={styles.langMenuItem}
           onClick={() => changeLanguage("sv")}
         >
-          Svenska{" "}
-          <img
-            src="https://storage.123fakturere.no/public/flags/SE.png"
-            alt="Swedish flag"
-          />
+          Svenska <img src={SWEDISH_FLAG_URL} alt="Swedish flag" />
         </button>
         <button
           className={styles.langMenuItem}
           onClick={() => changeLanguage("en")}
         >
-          English{" "}
-          <img
-            src="https://storage.123fakturere.no/public/flags/GB.png"
-            alt="English flag"
-          />
+          English <img src={ENGLISH_FLAG_URL} alt="English flag" />
         </button>
       </div>
     </div>
