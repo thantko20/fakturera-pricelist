@@ -21,14 +21,33 @@ const PROFILE_PIC_URL =
   "https://images.unsplash.com/photo-1740252117070-7aa2955b25f8?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 const menuItems = [
-  { key: "invoices", label: "Invoices", to: "#", Icon: FileTextIcon },
-  { key: "customers", label: "Customers", to: "#", Icon: UsersIcon },
-  { key: "my-business", label: "My Business", to: "#", Icon: BriefcaseIcon },
+  {
+    key: "invoices",
+    label: "Invoices",
+    to: "#",
+    Icon: FileTextIcon,
+    color: "#4bd8fc",
+  },
+  {
+    key: "customers",
+    label: "Customers",
+    to: "#",
+    Icon: UsersIcon,
+    color: "#21d1fd",
+  },
+  {
+    key: "my-business",
+    label: "My Business",
+    to: "#",
+    Icon: BriefcaseIcon,
+    color: "#30bee6",
+  },
   {
     key: "invoice-journal",
     label: "Invoice Journal",
     to: "#",
     Icon: NotebookIcon,
+    color: "#30bee6",
   },
   {
     key: "price-list",
@@ -36,26 +55,30 @@ const menuItems = [
     to: "/price-list",
     Icon: TagIcon,
     isActive: true,
+    color: "#f78b33",
   },
   {
     key: "multiple-invoicing",
     label: "Multiple Invoicing",
     to: "#",
     Icon: FilesIcon,
+    color: "#30bee6",
   },
   {
     key: "unpaid-invoices",
     label: "Unpaid Invoices",
     to: "#",
     Icon: XCircleIcon,
+    color: "#e630a0",
   },
-  { key: "offer", label: "Offer", to: "#", Icon: TicketIcon },
+  { key: "offer", label: "Offer", to: "#", Icon: TicketIcon, color: "#e7b262" },
   {
     key: "inventory-control",
     label: "Inventory Control",
     to: "#",
     Icon: PackageIcon,
     isMuted: true,
+    color: "#30bee6",
   },
   {
     key: "member-invoicing",
@@ -63,14 +86,22 @@ const menuItems = [
     to: "#",
     Icon: CreditCardIcon,
     isMuted: true,
+    color: "#0668e9",
   },
   {
     key: "import-export",
     label: "Import/Export",
     to: "#",
     Icon: CloudArrowUpIcon,
+    color: "#6d92c2",
   },
-  { key: "logout", label: "Log out", to: "#", Icon: SignOutIcon },
+  {
+    key: "logout",
+    label: "Log out",
+    to: "#",
+    Icon: SignOutIcon,
+    color: "#30bee6",
+  },
 ];
 
 export default function MainLayout() {
@@ -125,11 +156,7 @@ export default function MainLayout() {
                     <span
                       className={`${styles.navIndicator} ${item.isActive ? styles.navIndicatorActive : ""}`}
                     ></span>
-                    <item.Icon
-                      size={16}
-                      weight="fill"
-                      className={styles.navIcon}
-                    />
+                    <item.Icon size={16} weight="fill" color={item.color} />
                     <span>{item.label}</span>
                   </Link>
                 </li>
