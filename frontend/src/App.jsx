@@ -12,6 +12,7 @@ function App() {
       </Route>
 
       <Route element={<MainLayout />}>
+        <Route path="/" element={<h1>Fakturera</h1>} />
         <Route path="/price-list" element={<PriceList />} />
       </Route>
     </Routes>
