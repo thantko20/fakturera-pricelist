@@ -34,6 +34,11 @@ const Product = new EntitySchema({
     description: {
       type: "text",
     },
+    createdAt: {
+      type: "timestamptz",
+      name: "created_at",
+      createDate: true,
+    },
   },
 });
 

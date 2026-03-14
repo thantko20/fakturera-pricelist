@@ -1,6 +1,22 @@
 INSERT INTO public.products (name, article_no, in_price, price, unit, quantity, description)
-VALUES ('Product 1', '1', 1000, 1500, 'pcs', 100, 'Description for Product 1'),
-       ('Product 2', '2', 2000, 3000, 'carton', 200, 'Description for Product 2'),
-       ('Product 3', '3', 500, 750, 'satchet', 150, 'Description for Product 3'),
-       ('Product 4', '4', 1200, 1800, 'pcs', 80, 'Description for Product 4'),
-       ('Product 5', '5', 800, 1200, 'pcs', 120, 'Description for Product 5');
+VALUES 
+      ('Product 1', '1', 1000, 1500, 'pcs', 100, 'Description for Product 1'),
+      ('Product 2', '2', 2000, 3000, 'carton', 200, 'Description for Product 2'),
+      ('Product 3', '3', 500, 750, 'satchet', 150, 'Description for Product 3'),
+      ('Product 4', '4', 1200, 1800, 'pcs', 80, 'Description for Product 4'),
+      ('Product 5', '5', 800, 1200, 'pcs', 120, 'Description for Product 5'),
+      ('Product 6', '6', 1500, 2200, 'box', 90, 'Description for Product 6'),
+      ('Product 7', '7', 950, 1400, 'pcs', 75, 'Description for Product 7'),
+      ('Product 8', '8', 3000, 4200, 'carton', 55, 'Description for Product 8'),
+      ('Product 9', '9', 1100, 1700, 'pack', 130, 'Description for Product 9'),
+      ('Product 10', '10', 670, 980, 'pcs', 210, 'Description for Product 10'),
+      ('Product 11', '11', 1450, 2150, 'set', 65, 'Description for Product 11'),
+      ('Product 12', '12', 2800, 3900, 'carton', 70, 'Description for Product 12'),
+      ('Product 13', '13', 720, 1080, 'pcs', 160, 'Description for Product 13'),
+      ('Product 14', '14', 5100, 6800, 'unit', 30, 'Description for Product 14'),
+      ('Product 15', '15', 2600, 3500, 'box', 115, 'Description for Product 15'),
+      ('Product 16', '16', 1320, 1950, 'pcs', 145, 'Description for Product 16'),
+      ('Product 17', '17', 1880, 2750, 'set', 88, 'Description for Product 17'),
+      ('Product 18', '18', 420, 650, 'satchet', 340, 'Description for Product 18'),
+      ('Product 19', '19', 970, 1480, 'pack', 170, 'Description for Product 19'),
+      ('Product 20', '20', 3600, 4990, 'carton', 45, 'Description for Product 20');

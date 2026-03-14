@@ -11,7 +11,7 @@ const getAll = async () => {
   const productRepository = AppDataSource.getRepository(Product);
   return await productRepository.find({
     order: {
-      articleNo: "asc",
+      createdAt: "asc",
     },
   });
 };
