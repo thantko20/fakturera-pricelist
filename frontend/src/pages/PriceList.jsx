@@ -2,30 +2,80 @@ import styles from "./PriceList.module.css";
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../lib/axios";
+import ProductsTable from "../components/ProductsTable";
 import {
   PlusCircleIcon,
   PrinterIcon,
   ToggleRightIcon,
 } from "@phosphor-icons/react";
+import { isAxiosError } from "axios";
+import toast from "react-hot-toast";
 
 export default function PriceList() {
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [editedFields, setEditedFields] = useState({});
+
+  const clearEditedFieldsByProductId = (productId) => {
+    if (productId == null) {
+      return;
+    }
+
+    const rowPrefix = `${productId}:`;
+
+    setEditedFields((previous) => {
+      const next = {};
+
+      for (const [fieldKey, value] of Object.entries(previous)) {
+        if (!fieldKey.startsWith(rowPrefix)) {
+          next[fieldKey] = value;
+        }
+      }
+
+      return next;
+    });
+  };
+
+  const releaseSelectedProduct = (productId) => {
+    setSelectedProductId((current) => {
+      if (productId == null || current === productId) {
+        return null;
+      }
+
+      return current;
+    });
+  };
+
   const productsQuery = useQuery({
     queryFn: async () => {
       return await api.get("/products").then((res) => res.data);
     },
+    queryKey: ["products"],
   });
 
   const updateProductMutation = useMutation({
     mutationFn: async ({ id, ...payload }) => {
       return await api.put(`/products/${id}`, payload).then((res) => res.data);
     },
-    onSuccess: () => {
-      productsQuery.refetch();
+    onSuccess: async (_, variables) => {
+      toast.success("Success!");
+      await productsQuery.refetch();
+      clearEditedFieldsByProductId(variables?.id);
+      releaseSelectedProduct(variables?.id);
+    },
+    onError: (error, variables) => {
+      clearEditedFieldsByProductId(variables?.id);
+      releaseSelectedProduct(variables?.id);
+
+      if (isAxiosError(error)) {
+        toast.error(
+          error.response.data?.error?.message ?? "Error while updating product"
+        );
+        return;
+      }
+
+      toast.error("Unknown Error");
     },
   });
-
-  const [selectedProductId, setSelectedProductId] = useState(null);
-  const [editedFields, setEditedFields] = useState({});
 
   const onRowInputFocus = (productId) => {
     setSelectedProductId(productId);
@@ -58,26 +108,23 @@ export default function PriceList() {
     };
   };
 
-  const onRowInputCommit = (product, field) => {
+  const onRowInputCommit = (product) => {
     const editedProduct = buildEditedProduct(product);
 
     updateProductMutation.mutate(editedProduct);
-
-    console.log("PRODUCT_EDIT_COMMIT", {
-      productId: product.id,
-      field,
-      value: editedProduct?.[field],
-      product: editedProduct,
-    });
   };
 
-  const onRowInputKeyDown = (event, product, field) => {
+  const onRowInputKeyDown = (event, product) => {
     if (event.key !== "Enter") {
       return;
     }
 
     event.preventDefault();
-    onRowInputCommit(product, field);
+    onRowInputCommit(product);
+  };
+
+  const isRowBeingEdited = (productId) => {
+    return selectedProductId === productId && updateProductMutation.isPending;
   };
 
   return (
@@ -111,164 +158,15 @@ export default function PriceList() {
       </section>
 
       <section className={styles.tableSection}>
-        <div className={styles.tableScroll}>
-          <table className={styles.priceTable}>
-            <thead>
-              <tr>
-                <th data-column="arrow" className={styles.indicatorHeader}></th>
-                <th data-column="articleNo">Article No.</th>
-                <th data-column="productName">Product/Service</th>
-                <th data-column="inPrice">In Price</th>
-                <th data-column="price">Price</th>
-                <th data-column="unit">Unit</th>
-                <th data-column="quantity">In Stock</th>
-                <th data-column="description">Description</th>
-                <th className={styles.moreHeader}></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {productsQuery.data?.map((product) => (
-                <tr key={product.id}>
-                  <td data-column="arrow" className={styles.rowArrow}>
-                    {selectedProductId === product.id ? "→" : null}
-                  </td>
-                  <td data-column="articleNo">
-                    <input
-                      required
-                      type="text"
-                      className={styles.rowInput}
-                      value={getFieldValue(product, "articleNo")}
-                      onChange={(event) =>
-                        onRowInputChange(
-                          product.id,
-                          "articleNo",
-                          event.target.value
-                        )
-                      }
-                      onKeyDown={(event) =>
-                        onRowInputKeyDown(event, product, "articleNo")
-                      }
-                      onFocus={() => onRowInputFocus(product.id)}
-                    />
-                  </td>
-                  <td data-column="productName">
-                    <input
-                      required
-                      type="text"
-                      className={styles.rowInput}
-                      value={getFieldValue(product, "name")}
-                      onChange={(event) =>
-                        onRowInputChange(product.id, "name", event.target.value)
-                      }
-                      onKeyDown={(event) =>
-                        onRowInputKeyDown(event, product, "name")
-                      }
-                      onFocus={() => onRowInputFocus(product.id)}
-                    />
-                  </td>
-                  <td data-column="inPrice">
-                    <input
-                      required
-                      type="number"
-                      min={1}
-                      className={styles.rowInput}
-                      value={getFieldValue(product, "inPrice")}
-                      onChange={(event) =>
-                        onRowInputChange(
-                          product.id,
-                          "inPrice",
-                          event.target.value
-                        )
-                      }
-                      onKeyDown={(event) =>
-                        onRowInputKeyDown(event, product, "inPrice")
-                      }
-                      onFocus={() => onRowInputFocus(product.id)}
-                    />
-                  </td>
-                  <td data-column="price">
-                    <input
-                      required
-                      type="number"
-                      min={1}
-                      className={styles.rowInput}
-                      value={getFieldValue(product, "price")}
-                      onChange={(event) =>
-                        onRowInputChange(
-                          product.id,
-                          "price",
-                          event.target.value
-                        )
-                      }
-                      onKeyDown={(event) =>
-                        onRowInputKeyDown(event, product, "price")
-                      }
-                      onFocus={() => onRowInputFocus(product.id)}
-                    />
-                  </td>
-                  <td data-column="unit">
-                    <input
-                      required
-                      type="text"
-                      className={styles.rowInput}
-                      value={getFieldValue(product, "unit")}
-                      onChange={(event) =>
-                        onRowInputChange(product.id, "unit", event.target.value)
-                      }
-                      onKeyDown={(event) =>
-                        onRowInputKeyDown(event, product, "unit")
-                      }
-                      onFocus={() => onRowInputFocus(product.id)}
-                    />
-                  </td>
-                  <td data-column="quantity">
-                    <input
-                      required
-                      type="number"
-                      min={0}
-                      className={styles.rowInput}
-                      value={getFieldValue(product, "quantity")}
-                      onChange={(event) =>
-                        onRowInputChange(
-                          product.id,
-                          "quantity",
-                          event.target.value
-                        )
-                      }
-                      onKeyDown={(event) =>
-                        onRowInputKeyDown(event, product, "quantity")
-                      }
-                      onFocus={() => onRowInputFocus(product.id)}
-                    />
-                  </td>
-                  <td data-column="description">
-                    <input
-                      type="text"
-                      required
-                      className={styles.rowInput}
-                      value={getFieldValue(product, "description")}
-                      onChange={(event) =>
-                        onRowInputChange(
-                          product.id,
-                          "description",
-                          event.target.value
-                        )
-                      }
-                      onKeyDown={(event) =>
-                        onRowInputKeyDown(event, product, "description")
-                      }
-                      onFocus={() => onRowInputFocus(product.id)}
-                    />
-                  </td>
-                  <td data-column="more" className={styles.rowMore}>
-                    ...
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ProductsTable
+          products={productsQuery.data}
+          selectedProductId={selectedProductId}
+          getFieldValue={getFieldValue}
+          onRowInputChange={onRowInputChange}
+          onRowInputKeyDown={onRowInputKeyDown}
+          onRowInputFocus={onRowInputFocus}
+          isRowBeingEdited={isRowBeingEdited}
+        />
       </section>
     </div>
   );

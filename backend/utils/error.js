@@ -48,6 +48,18 @@ export class NotFoundError extends AppError {
   }
 }
 
+export class ProductNameAlreadyExistsError extends AppError {
+  constructor(name) {
+    super(409, `Product with name ${name} already exists`);
+  }
+}
+
+export class ProductArticleNoAlreadyExistsError extends AppError {
+  constructor(articleNo) {
+    super(409, `Product with article no ${articleNo} already exists`);
+  }
+}
+
 export const errorHandler = (error, req, res, next) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({
