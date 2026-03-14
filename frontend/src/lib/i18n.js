@@ -12,7 +12,7 @@ i18n
       escapeValue: false,
     },
     backend: {
-      loadPath: "http://localhost:3000/api/translations/locales/{{lng}}",
+      loadPath: `${import.meta.env.VITE_API_BASE_URL}/translations/locales/{{lng}}`,
     },
   });
 
