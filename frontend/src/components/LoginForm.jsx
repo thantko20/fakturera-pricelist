@@ -9,6 +9,8 @@ import { useAuth } from "../hooks/use-auth";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
+import toast from "react-hot-toast";
+import { isAxiosError } from "axios";
 
 const PasswordInput = ({ register }) => {
   const { t } = useTranslation();
@@ -56,9 +58,7 @@ export default function LoginForm() {
 
   const loginMutation = useMutation({
     mutationFn: async (payload) => {
-      console.log("Login payload:", payload);
       const response = await api.post("/auth/login", payload);
-      console.log("Login response:", response.data);
       return response.data;
     },
     onSuccess: (data) => {
@@ -68,14 +68,18 @@ export default function LoginForm() {
       });
       navigate("/price-list");
     },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        toast.error(error.response.data?.error?.message ?? "Login failed");
+        return;
+      }
+      toast.error("Unknown error");
+    },
   });
 
   const onSubmit = (data) => {
     loginMutation.mutate(data);
   };
-
-  const loginErrorMessage =
-    loginMutation.error?.response?.data?.message || "Login failed";
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -94,11 +98,6 @@ export default function LoginForm() {
         <PasswordInput register={register} />
         <p className={styles.inputError}>{t(errors.password?.message || "")}</p>
       </div>
-
-      {loginMutation.isError && (
-        <p className={styles.inputError}>{loginErrorMessage}</p>
-      )}
-
       <button
         type="submit"
         className={styles.submitButton}

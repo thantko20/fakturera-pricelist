@@ -7,10 +7,12 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/tanstack-query.js";
 import "./lib/i18n.js";
 import AuthProvider from "./providers/AuthProvider.jsx";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Suspense fallback={<div>Loading...</div>}>
+      <Toaster />
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
